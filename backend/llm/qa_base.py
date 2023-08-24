@@ -110,6 +110,7 @@ class QABaseBrainPicking(BaseBrainPicking):
             verbose=False,
             callbacks=callbacks,
             openai_api_key=self.openai_api_key,
+            openai_api_base=self.openai_api_base,
         )  # pyright: ignore reportPrivateUsage=none
 
     def _create_prompt_template(self):
