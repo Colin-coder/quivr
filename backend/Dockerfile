@@ -10,9 +10,11 @@ WORKDIR /code
 # Copy just the requirements first
 COPY ./requirements.txt .
 
+RUN pip3 install -i https://pypi.douban.com/simple/ -U pip 
+RUN pip3 config set global.index-url https://pypi.douban.com/simple/
 
 # Increase timeout might not be necessary but is retained as in original
-RUN pip install --no-cache-dir -r requirements.txt --timeout 100
+RUN pip3 install --no-cache-dir -r requirements.txt --timeout 100
 
 # Copy the rest of the application
 COPY . .

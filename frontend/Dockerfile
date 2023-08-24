@@ -2,6 +2,10 @@ FROM node:18-alpine
 # Install Python and essential build tools
 RUN apk add --update --no-cache python3 make g++ && ln -sf python3 /usr/bin/python
 RUN python3 -m ensurepip
+
+# Using douban pipy mirror
+RUN pip3 install -i https://pypi.douban.com/simple/ -U pip 
+RUN pip3 config set global.index-url https://pypi.douban.com/simple/
 RUN pip3 install --no-cache --upgrade pip setuptools
 
 # Create the directory on the node image 
@@ -16,7 +20,7 @@ WORKDIR /app
 COPY package*.json yarn.lock ./
 
 # Install dependencies in /app
-RUN yarn install --network-timeout 1000000
+RUN yarn --registry=https://registry.npm.taobao.org/ install --network-timeout 1000000
 
 # Copy the rest of our Next.js folder into /app
 COPY . .
